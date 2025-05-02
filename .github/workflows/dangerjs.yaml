@@ -1,0 +1,15 @@
+name: Danger JS
+on: [pull_request]
+
+jobs:
+  build:
+    name: Danger JS
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+      - name: Danger
+        uses: danger/danger-js@11.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DANGER_DISABLE_TRANSPILATION: true

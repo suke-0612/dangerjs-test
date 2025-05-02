@@ -14,11 +14,11 @@ function checkBranchName(headBranch, baseBranch) {
   if (!isCheckBranch) return;
 
   // PRがdevelopに向いている場合注意文言を表示
-  if (baseBranch.includes("develop")) {
+  if (baseBranch.includes("main")) {
     warn("Pull requestsの向き先確認");
     markdown(`
 ### ⚠️ ブランチの向き先確認！
-Pull requestsの向き先が\`develop\`になっています
+Pull requestsの向き先が\`main\`になっています
 向き先が正しいか確認してください！
     `);
   }
