@@ -1,0 +1,47 @@
+name: PR Check
+
+# PRが作成、更新、再オープンされた時に実行
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-info:
+    name: Pull Request Info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: PR Information
+        run: |
+          echo "🔍 Pull Request Information"
+          echo "Title: ${{ github.event.pull_request.title }}"
+          echo "PR Number: #${{ github.event.pull_request.number }}"
+          echo "Created by: ${{ github.event.pull_request.user.login }}"
+          echo "Base branch: ${{ github.event.pull_request.base.ref }}"
+          echo "Head branch: ${{ github.event.pull_request.head.ref }}"
+          
+      - name: Count Files Changed
+        run: |
+          echo "📄 Files changed in this PR:"
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git diff --name-only FETCH_HEAD | wc -l
+          
+      - name: List Modified Files
+        run: |
+          echo "📝 List of modified files:"
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git diff --name-only FETCH_HEAD
+          
+      - name: Add Comment to PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for opening this PR! The automated check has completed successfully.'
+            })
