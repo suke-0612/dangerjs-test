@@ -15,7 +15,7 @@ function checkMargeBranchName(headBranch, baseBranch) {
 
   // PRがdevelopに向いている場合注意文言を表示
   if (baseBranch.includes("main")) {
-    warn("Pull requestsの向き先確認");
+    fail("Pull requestsの向き先確認");
     markdown(`
 ### ⚠️ ブランチの向き先確認！
 Pull requestsの向き先が\`main\`になっています
