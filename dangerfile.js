@@ -3,7 +3,7 @@ import { danger, warn, fail, markdown } from 'danger';
 /**
  * mainブランチへのマージを検出し、特定の例外ブランチを除いて警告を表示する
  */
-function warnOnMainMerge(): void {
+function warnOnMainMerge(){
   const targetBranch = danger.github.pr.base.ref;
   const sourceBranch = danger.github.pr.head.ref;
   
@@ -39,7 +39,7 @@ Pull requestの向き先が\`main\`になっています
 /**
  * ブランチ名が命名規則に合っているかチェックする
  */
-function checkBranchNamingConvention(): void {
+function checkBranchNamingConvention(){
   const branchName = danger.github.pr.head.ref;
   
   // 命名規則パターンを定義
