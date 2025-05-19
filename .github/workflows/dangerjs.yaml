@@ -7,9 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm install didyoumean
-
       - name: Run Danger
         uses: danger/danger-js@11.0.2
         env:
